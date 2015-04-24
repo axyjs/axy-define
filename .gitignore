@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+ts/*.js
+ts/core/*.js
+tasks/*.js
+tmp/*
+!tmp/.gitkeep
+.idea

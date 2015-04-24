@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>Example Test Suite</title>
+    <link rel="stylesheet" href="nodeunit.css" type="text/css" />
+    <script>
+        if (!Array.prototype.map) {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.1/es5-shim.min.js"></' + 'script>');
+        }
+        if (typeof JSON === "undefined") {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></' + 'script>');
+        }
+    </script>
+    <script src="../../axy-define.js"></script>
+    <script src="nodeunit.js"></script>
+    <script src="tests.js"></script>
+
+</head>
+<body>
+<h1 id="nodeunit-header">Example Test Suite</h1>
+<script src="loader.js"></script>
+</body>
+</html>
