@@ -76,5 +76,5 @@ If you need the dynamic loading of modules, you can define [the asynchronous loa
 In addition:
 
 * [Examples](https://github.com/axyjs/axy-define-examples)
-* [Unit tests](https://io.github.com/axyjs/axy-define/test/browser/index.html)
+* [Unit tests](https://axyjs.github.io/axy-define/test/browser/index.html)
 
