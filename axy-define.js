@@ -9,8 +9,9 @@
 
 var axy = axy || {};
 
-axy.define = (function (globalObject, undefined) {
-    function createSandbox() {
+axy.define = (function (window, undefined) {
+    function createSandbox(externalGlobal) {
+        externalGlobal = externalGlobal || window;
         /**
          * Internal context of the library
          */
@@ -298,12 +299,12 @@ axy.define = (function (globalObject, undefined) {
             var timers;
             (function (timers) {
                 "use strict";
-                var nativeSetTimeout = globalObject.setTimeout;
-                var nativeClearTimeout = globalObject.clearTimeout;
-                var nativeSetInterval = globalObject.setInterval;
-                var nativeClearInterval = globalObject.clearInterval;
-                var nativeSetImmediate = globalObject.setImmediate;
-                var nativeClearImmediate = globalObject.clearImmediate;
+                var nativeSetTimeout = externalGlobal.setTimeout;
+                var nativeClearTimeout = externalGlobal.clearTimeout;
+                var nativeSetInterval = externalGlobal.setInterval;
+                var nativeClearInterval = externalGlobal.clearInterval;
+                var nativeSetImmediate = externalGlobal.setImmediate;
+                var nativeClearImmediate = externalGlobal.clearImmediate;
                 if (!nativeSetImmediate) {
                     nativeSetImmediate = function setImmediate(callback) {
                         return nativeSetTimeout(callback, 0);
@@ -507,7 +508,7 @@ axy.define = (function (globalObject, undefined) {
                  * The global paths
                  */
                 process.paths = [];
-                var setImmediate = globalObject.setImmediate;
+                var setImmediate = externalGlobal.setImmediate;
                 /**
                  * Runs callback after the current event loop
                  *
@@ -1281,40 +1282,108 @@ axy.define = (function (globalObject, undefined) {
             coreModules.Core = Core;
         })(coreModules || (coreModules = {}));
         /**
-         * The analogue of the global object
+         * Defines `globalObject` the analogue of the Node.js global object
          *
          * Inside the module is available as `global`.
          * Outside as `axy.define.global`.
          */
+        /// <reference path="../../typing/node.d.ts" />
         /// <reference path="process.ts" />
         var core;
         (function (core) {
             var global;
-            (function (_global) {
-                /**
-                 * Circular reference to itself
-                 */
-                _global.global = core.global;
-                /**
-                 * Global variable `process`
-                 */
-                _global.process = core.process;
-                /**
-                 * Real global object
-                 */
-                _global.window = globalObject;
-                /**
-                 * Data from the server
-                 */
-                _global.external = {};
+            (function (global) {
+                global.globalObject = {};
+                global.globalObject.global = global.globalObject;
+                global.globalObject.root = global.globalObject;
+                global.globalObject.GLOBAL = global.globalObject;
+                global.globalObject.external = {};
+                global.globalObject.window = externalGlobal;
                 var timers = core.timers;
-                _global.console = _global.window.console;
-                _global.setTimeout = timers.setTimeout;
-                _global.clearTimeout = timers.clearTimeout;
-                _global.setInterval = timers.setInterval;
-                _global.clearInterval = timers.clearInterval;
-                _global.setImmediate = timers.setImmediate;
-                _global.clearImmediate = timers.clearImmediate;
+                var imports = [
+                    [
+                        externalGlobal,
+                        [
+                            "Array",
+                            "ArrayBuffer",
+                            "Boolean",
+                            "DataView",
+                            "Date",
+                            "Error",
+                            "EvalError",
+                            "Float32Array",
+                            "Float64Array",
+                            "Function",
+                            "Infinity",
+                            "Int16Array",
+                            "Int32Array",
+                            "Int8Array",
+                            "Intl",
+                            "JSON",
+                            "Map",
+                            "Math",
+                            "NaN",
+                            "Number",
+                            "Object",
+                            "Promise",
+                            "RangeError",
+                            "ReferenceError",
+                            "RegExp",
+                            "Set",
+                            "String",
+                            "Symbol",
+                            "SyntaxError",
+                            "TypeError",
+                            "URIError",
+                            "Uint16Array",
+                            "Uint32Array",
+                            "Uint8Array",
+                            "Uint8ClampedArray",
+                            "WeakMap",
+                            "WeakSet",
+                            "console",
+                            "decodeURI",
+                            "decodeURIComponent",
+                            "encodeURI",
+                            "encodeURIComponent",
+                            "escape",
+                            "eval",
+                            "isFinite",
+                            "isNaN",
+                            "parseFloat",
+                            "parseInt",
+                            "unescape"
+                        ],
+                    ],
+                    [
+                        timers,
+                        [
+                            "setTimeout",
+                            "clearTimeout",
+                            "setInterval",
+                            "clearInterval",
+                            "setImmediate",
+                            "clearImmediate"
+                        ]
+                    ],
+                    [
+                        {
+                            process: core.process,
+                            Buffer: function Buffer() {
+                            }
+                        },
+                        [
+                            "process",
+                            "Buffer"
+                        ]
+                    ]
+                ];
+                imports.forEach(function (item) {
+                    var container = item[0];
+                    item[1].forEach(function (key) {
+                        global.globalObject[key] = container[key];
+                    });
+                });
             })(global = core.global || (core.global = {}));
         })(core || (core = {}));
         /**
@@ -1824,7 +1893,7 @@ axy.define = (function (globalObject, undefined) {
             settings.instance = {
                 dirMain: ["index"],
                 packageMain: ["main"],
-                wrapperArgs: [core.global, core.process]
+                wrapperArgs: [core.global.globalObject, core.process]
             };
         })(settings || (settings = {}));
         /**
@@ -1904,7 +1973,7 @@ axy.define = (function (globalObject, undefined) {
                     return engine.Module;
                 });
                 sandbox.core.addModule("__axy", { util: util, helpers: helpers });
-                sandbox.global = globalMo;
+                sandbox.global = globalMo.globalObject;
                 sandbox.async = asyncMo;
                 sandbox.createSandbox = function () {
                     var sandbox = cs();
@@ -1916,7 +1985,6 @@ axy.define = (function (globalObject, undefined) {
                 function destroy() {
                     context.destroy();
                     engine.destroy();
-                    helpers.destroyContainer(core.global);
                     helpers.destroyContainer(sandbox);
                 }
                 sandbox.signal = function (event) {
@@ -2005,5 +2073,5 @@ axy.define = (function (globalObject, undefined) {
         
         return sandbox.create(createSandbox);
     }
-    return createSandbox();
+    return createSandbox(window);
 })(window);

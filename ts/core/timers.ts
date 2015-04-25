@@ -4,14 +4,14 @@
 module core.timers {
     "use strict";
 
-    declare var globalObject: typeof window;
+    declare var externalGlobal: typeof window;
 
-    var nativeSetTimeout: typeof window.setTimeout = globalObject.setTimeout;
-    var nativeClearTimeout: typeof window.clearTimeout = globalObject.clearTimeout;
-    var nativeSetInterval: typeof window.setInterval = globalObject.setInterval;
-    var nativeClearInterval: typeof window.clearInterval = globalObject.clearInterval;
-    var nativeSetImmediate: typeof window.setImmediate = globalObject.setImmediate;
-    var nativeClearImmediate: typeof window.clearImmediate = globalObject.clearImmediate;
+    var nativeSetTimeout: typeof window.setTimeout = externalGlobal.setTimeout;
+    var nativeClearTimeout: typeof window.clearTimeout = externalGlobal.clearTimeout;
+    var nativeSetInterval: typeof window.setInterval = externalGlobal.setInterval;
+    var nativeClearInterval: typeof window.clearInterval = externalGlobal.clearInterval;
+    var nativeSetImmediate: typeof window.setImmediate = externalGlobal.setImmediate;
+    var nativeClearImmediate: typeof window.clearImmediate = externalGlobal.clearImmediate;
 
     if (!nativeSetImmediate) {
         nativeSetImmediate = function setImmediate(callback: Function): number {

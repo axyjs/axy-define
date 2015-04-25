@@ -8,29 +8,41 @@ Contained in `axy.define.global`.
 Available within a user module as `global`.
 See [global variables](globals.md) for details.
 
-There are following fields (analogue of Node.js):
+## Browser properties
 
-* [global](global.md): circular reference
+These properties copying from `window`.
+Regardless of whether they are implemented in a current browser.
+
+```
+Array, ArrayBuffer, Boolean, DataView, Date, Error, EvalError, Float32Array,
+Float64Array, Function, Infinity, Int16Array, Int32Array, Int8Array, Intl,
+JSON, Map, Math, NaN, Number, Object, Promise, RangeError, ReferenceError,
+RegExp, Set, String, Symbol, SyntaxError, TypeError, URIError, Uint16Array,
+Uint32Array, Uint8Array, Uint8ClampedArray, WeakMap, WeakSet, console,
+decodeURI, decodeURIComponent, encodeURI, encodeURIComponent, escape, eval,
+isFinite, isNaN, parseFloat, parseInt, unescape
+```
+
+## Timers
+
+These methods copying from module [timers](timers.md).
+
+```
+setTimeout, clearTimeout,
+setInterval, clearInterval
+setImmediate, clearImmediate
+```
+
+## Node.js specific properties
+
+* [global](global.md), [GLOBAL](global.md), [root](root.md): circular reference
 * [process](process.md)
-* `console`
-* `setTimeout`
-* `clearTimeout`
-* `setInterval`
-* `clearInterval`
+* `Buffer` - not implemented (stub function)
 
-The fields `console`-`clearInterval` entered for compatibility.
-Timers are taken from the module [timer](timer.md).
-Replacing `global`.`console` will not replace the global `console`.
-Although this can be achieved via [settings.wrapperArgs](settings.md).
+## Axy specific properties
 
-* `window`
-
-The link to the global object that was passed to the library.
-In browsers it typically is `window`.
-
-* `external`
-
-Used to transfer data from the server.
+* `window` - the link to the [external global object](sandbox.md). Usually it is `window`.
+* `external` - used to transfer data from the server.
 
 For example, google map is displayed with a marker on a specific address.
 Module responsible for working with the map, must know the current address.
@@ -65,3 +77,12 @@ console.log(global.x); // undefined
 It's clear that such global variables (without `var`) will not be properties of the pseudo-global `global`.
 However, global variables is evil.
 
+## Replacement
+
+Global functions will be taken from `window`.
+
+```javascript
+setTimeout === global.setTimeout; // False
+```
+
+But specific variables can be made [pseudo-globals](globals.md).

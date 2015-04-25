@@ -24,6 +24,6 @@ module settings {
     export var instance: ISettings = {
         dirMain: ["index"],
         packageMain: ["main"],
-        wrapperArgs: [core.global, core.process]
+        wrapperArgs: [core.global.globalObject, core.process]
     };
 }

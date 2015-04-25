@@ -1,4 +1,5 @@
 declare module "axy-define" {
+    /// <reference path="../typing/node.d.ts" />
     /**
      * Internal context of the library
      */
@@ -745,35 +746,17 @@ declare module "axy-define" {
         }
     }
     /**
-     * The analogue of the global object
+     * Defines `globalObject` the analogue of the Node.js global object
      *
      * Inside the module is available as `global`.
      * Outside as `axy.define.global`.
      */
     module core.global {
-        /**
-         * Circular reference to itself
-         */
-        var global: typeof core.global;
-        /**
-         * Global variable `process`
-         */
-        var process: typeof core.process;
-        /**
-         * Real global object
-         */
-        var window: any;
-        /**
-         * Data from the server
-         */
-        var external: any;
-        var console: typeof window.console;
-        var setTimeout: typeof window.setTimeout;
-        var clearTimeout: typeof window.clearTimeout;
-        var setInterval: typeof window.setInterval;
-        var clearInterval: typeof window.clearInterval;
-        var setImmediate: typeof window.setImmediate;
-        var clearImmediate: typeof window.clearImmediate;
+        interface IGlobal extends NodeJS.Global {
+            external: any;
+            window: Window;
+        }
+        var globalObject: IGlobal;
     }
     /**
      * The function `require()`
@@ -1239,7 +1222,7 @@ declare module "axy-define" {
             /**
              * The global variable
              */
-            global: typeof globalMo;
+            global: globalMo.IGlobal;
             /**
              * The global `createSandbox()` function
              */

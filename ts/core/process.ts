@@ -40,8 +40,8 @@ module core.process {
      */
     export var paths: string[] = [];
 
-    declare var globalObject: typeof window;
-    var setImmediate: typeof window.setImmediate = globalObject.setImmediate;
+    declare var externalGlobal: typeof window;
+    var setImmediate: typeof window.setImmediate = externalGlobal.setImmediate;
 
     /**
      * Runs callback after the current event loop

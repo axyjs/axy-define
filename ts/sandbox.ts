@@ -117,7 +117,7 @@ module sandbox {
         /**
          * The global variable
          */
-        global: typeof globalMo;
+        global: globalMo.IGlobal;
 
         /**
          * The global `createSandbox()` function
@@ -202,7 +202,7 @@ module sandbox {
             return engine.Module;
         });
         sandbox.core.addModule("__axy", {util: util, helpers: helpers});
-        sandbox.global = globalMo;
+        sandbox.global = globalMo.globalObject;
         sandbox.async = asyncMo;
         sandbox.createSandbox = function (): ISandbox {
             var sandbox: ISandbox = cs();
@@ -214,7 +214,6 @@ module sandbox {
         function destroy(): void {
             context.destroy();
             engine.destroy();
-            helpers.destroyContainer(core.global);
             helpers.destroyContainer(sandbox);
         }
         sandbox.signal = function (event: string, ...args: any[]): void {
