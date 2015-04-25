@@ -18,10 +18,11 @@
 
 var axy = axy || {};
 
-axy.define = (function (globalObject, undefined) {
-    function createSandbox() {
+axy.define = (function (window, undefined) {
+    function createSandbox(externalGlobal) {
+        externalGlobal = externalGlobal || window;
         "<%= content %>";
         return sandbox.create(createSandbox);
     }
-    return createSandbox();
+    return createSandbox(window);
 })(window);
