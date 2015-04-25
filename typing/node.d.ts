@@ -15,7 +15,7 @@
  *                                               *
  ************************************************/
 declare var process: NodeJS.Process;
-declare var global: any;
+declare var global: NodeJS.Global;
 
 declare var __filename: string;
 declare var __dirname: string;
@@ -188,6 +188,69 @@ declare module NodeJS {
 
         // Worker
         send?(message: any, sendHandle?: any): void;
+    }
+
+    export interface Global {
+        Array: any;
+        ArrayBuffer: any;
+        Boolean: any;
+        Buffer: typeof Buffer;
+        DataView: any;
+        Date: any;
+        Error: any;
+        EvalError: any;
+        Float32Array: any;
+        Float64Array: any;
+        Function: any;
+        GLOBAL: Global;
+        Infinity: any;
+        Int16Array: any;
+        Int32Array: any;
+        Int8Array: any;
+        Intl: any;
+        JSON: any;
+        Map: any;
+        Math: any;
+        NaN: any;
+        Number: any;
+        Object: any;
+        Promise: any;
+        RangeError: any;
+        ReferenceError: any;
+        RegExp: any;
+        Set: any;
+        String: any;
+        Symbol: any;
+        SyntaxError: any;
+        TypeError: any;
+        URIError: any;
+        Uint16Array: any;
+        Uint32Array: any;
+        Uint8Array: any;
+        Uint8ClampedArray: any;
+        WeakMap: any;
+        WeakSet: any;
+        clearImmediate: Function;
+        clearInterval: Function;
+        clearTimeout: Function;
+        console: any;
+        decodeURI: any;
+        decodeURIComponent: any;
+        encodeURI: any;
+        encodeURIComponent: any;
+        escape: any;
+        eval: any;
+        global: Global;
+        isFinite: any;
+        isNaN: any;
+        parseFloat: any;
+        parseInt: any;
+        process: NodeJS.Process;
+        root: Global;
+        setImmediate: Function;
+        setTimeout: Function;
+        setInterval: Function;
+        unescape: any;
     }
 
     export interface Timer {
