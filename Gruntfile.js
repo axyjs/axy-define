@@ -64,7 +64,7 @@ module.exports = function (grunt) {
             options: {
                 root: __dirname,
                 src: "tmp/compiled.d.ts",
-                dest: "axy-define.d.ts"
+                dest: "typing/axy-define.d.ts"
             }
         },
         loaderTests: {
