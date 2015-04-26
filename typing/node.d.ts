@@ -4,16 +4,16 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /************************************************
- *                                               *
- *               Node.js v0.12.0 API             *
- *                                               *
- ************************************************/
+*                                               *
+*               Node.js v0.12.0 API             *
+*                                               *
+************************************************/
 
 /************************************************
- *                                               *
- *                   GLOBAL                      *
- *                                               *
- ************************************************/
+*                                               *
+*                   GLOBAL                      *
+*                                               *
+************************************************/
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
 
@@ -73,10 +73,10 @@ declare var Buffer: {
 };
 
 /************************************************
- *                                               *
- *               GLOBAL INTERFACES               *
- *                                               *
- ************************************************/
+*                                               *
+*               GLOBAL INTERFACES               *
+*                                               *
+************************************************/
 declare module NodeJS {
     export interface ErrnoException extends Error {
         errno?: number;
@@ -191,66 +191,67 @@ declare module NodeJS {
     }
 
     export interface Global {
-        Array: any;
-        ArrayBuffer: any;
-        Boolean: any;
+        Array: typeof Array;
+        ArrayBuffer: typeof ArrayBuffer;
+        Boolean: typeof Boolean;
         Buffer: typeof Buffer;
-        DataView: any;
-        Date: any;
-        Error: any;
-        EvalError: any;
-        Float32Array: any;
-        Float64Array: any;
-        Function: any;
+        DataView: typeof DataView;
+        Date: typeof Date;
+        Error: typeof Error;
+        EvalError: typeof EvalError;
+        Float32Array: typeof Float32Array;
+        Float64Array: typeof Float64Array;
+        Function: typeof Function;
         GLOBAL: Global;
-        Infinity: any;
-        Int16Array: any;
-        Int32Array: any;
-        Int8Array: any;
-        Intl: any;
-        JSON: any;
-        Map: any;
-        Math: any;
-        NaN: any;
-        Number: any;
-        Object: any;
-        Promise: any;
-        RangeError: any;
-        ReferenceError: any;
-        RegExp: any;
-        Set: any;
-        String: any;
-        Symbol: any;
-        SyntaxError: any;
-        TypeError: any;
-        URIError: any;
-        Uint16Array: any;
-        Uint32Array: any;
-        Uint8Array: any;
-        Uint8ClampedArray: any;
-        WeakMap: any;
-        WeakSet: any;
-        clearImmediate: Function;
-        clearInterval: Function;
-        clearTimeout: Function;
-        console: any;
-        decodeURI: any;
-        decodeURIComponent: any;
-        encodeURI: any;
-        encodeURIComponent: any;
-        escape: any;
-        eval: any;
+        Infinity: typeof Infinity;
+        Int16Array: typeof Int16Array;
+        Int32Array: typeof Int32Array;
+        Int8Array: typeof Int8Array;
+        Intl: typeof Intl;
+        JSON: typeof JSON;
+        Map: typeof Map;
+        Math: typeof Math;
+        NaN: typeof NaN;
+        Number: typeof Number;
+        Object: typeof Object;
+        Promise: Function;
+        RangeError: typeof RangeError;
+        ReferenceError: typeof ReferenceError;
+        RegExp: typeof RegExp;
+        Set: typeof Set;
+        String: typeof String;
+        Symbol: Function;
+        SyntaxError: typeof SyntaxError;
+        TypeError: typeof TypeError;
+        URIError: typeof URIError;
+        Uint16Array: typeof Uint16Array;
+        Uint32Array: typeof Uint32Array;
+        Uint8Array: typeof Uint8Array;
+        Uint8ClampedArray: Function;
+        WeakMap: typeof WeakMap;
+        WeakSet: Function;
+        clearImmediate: (immediateId: any) => void;
+        clearInterval: (intervalId: NodeJS.Timer) => void;
+        clearTimeout: (timeoutId: NodeJS.Timer) => void;
+        console: typeof console;
+        decodeURI: typeof decodeURI;
+        decodeURIComponent: typeof decodeURIComponent;
+        encodeURI: typeof encodeURI;
+        encodeURIComponent: typeof encodeURIComponent;
+        escape: (str: string) => string;
+        eval: typeof eval;
         global: Global;
-        isFinite: any;
-        isNaN: any;
-        parseFloat: any;
-        parseInt: any;
-        process: NodeJS.Process;
+        isFinite: typeof isFinite;
+        isNaN: typeof isNaN;
+        parseFloat: typeof parseFloat;
+        parseInt: typeof parseInt;
+        process: Process;
         root: Global;
-        setImmediate: Function;
-        setTimeout: Function;
-        setInterval: Function;
-        unescape: any;
+        setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => any;
+        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
+        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
+        undefined: typeof undefined;
+        unescape: (str: string) => string;    
     }
 
     export interface Timer {
@@ -302,10 +303,10 @@ interface NodeBuffer {
 }
 
 /************************************************
- *                                               *
- *                   MODULES                     *
- *                                               *
- ************************************************/
+*                                               *
+*                   MODULES                     *
+*                                               *
+************************************************/
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
 }
@@ -329,7 +330,7 @@ declare module "events" {
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
-    }
+   }
 }
 
 declare module "http" {
@@ -428,41 +429,41 @@ declare module "http" {
      */
     export interface ClientResponse extends IncomingMessage { }
 
-    export interface AgentOptions {
-        /**
-         * Keep sockets around in a pool to be used by other requests in the future. Default = false
-         */
-        keepAlive?: boolean;
-        /**
-         * When using HTTP KeepAlive, how often to send TCP KeepAlive packets over sockets being kept alive. Default = 1000.
-         * Only relevant if keepAlive is set to true.
-         */
-        keepAliveMsecs?: number;
-        /**
-         * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
-         */
-        maxSockets?: number;
-        /**
-         * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
-         */
-        maxFreeSockets?: number;
-    }
+	export interface AgentOptions {
+		/**
+		 * Keep sockets around in a pool to be used by other requests in the future. Default = false
+		 */
+		keepAlive?: boolean;
+		/**
+		 * When using HTTP KeepAlive, how often to send TCP KeepAlive packets over sockets being kept alive. Default = 1000.
+		 * Only relevant if keepAlive is set to true.
+		 */
+		keepAliveMsecs?: number;
+		/**
+		 * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
+		 */
+		maxSockets?: number;
+		/**
+		 * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
+		 */
+		maxFreeSockets?: number;
+	}
 
     export class Agent {
-        maxSockets: number;
-        sockets: any;
-        requests: any;
+		maxSockets: number;
+		sockets: any;
+		requests: any;
 
-        constructor(opts?: AgentOptions);
+		constructor(opts?: AgentOptions);
 
-        /**
-         * Destroy any sockets that are currently in use by the agent.
-         * It is usually not necessary to do this. However, if you are using an agent with KeepAlive enabled,
-         * then it is best to explicitly shut down the agent when you know that it will no longer be used. Otherwise,
-         * sockets may hang open for quite a long time before the server terminates them.
-         */
-        destroy(): void;
-    }
+		/**
+		 * Destroy any sockets that are currently in use by the agent.
+		 * It is usually not necessary to do this. However, if you are using an agent with KeepAlive enabled,
+		 * then it is best to explicitly shut down the agent when you know that it will no longer be used. Otherwise,
+		 * sockets may hang open for quite a long time before the server terminates them.
+		 */
+		destroy(): void;
+	}
 
     export var STATUS_CODES: {
         [errorCode: number]: string;
@@ -641,8 +642,8 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
+    export function request(options: RequestOptions, callback?: (res: any) =>void ): http.ClientRequest;
+    export function get(options: RequestOptions, callback?: (res: any) =>void ): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -745,9 +746,9 @@ declare module "child_process" {
     }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string,
-                             callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string, args?: string[],
-                             callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string, args?: string[], options?: {
         cwd?: string;
         stdio?: any;
@@ -1116,33 +1117,33 @@ declare module "path" {
     export function format(pP: ParsedPath): string;
 
     export module posix {
-        export function normalize(p: string): string;
-        export function join(...paths: any[]): string;
-        export function resolve(...pathSegments: any[]): string;
-        export function isAbsolute(p: string): boolean;
-        export function relative(from: string, to: string): string;
-        export function dirname(p: string): string;
-        export function basename(p: string, ext?: string): string;
-        export function extname(p: string): string;
-        export var sep: string;
-        export var delimiter: string;
-        export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+      export function normalize(p: string): string;
+      export function join(...paths: any[]): string;
+      export function resolve(...pathSegments: any[]): string;
+      export function isAbsolute(p: string): boolean;
+      export function relative(from: string, to: string): string;
+      export function dirname(p: string): string;
+      export function basename(p: string, ext?: string): string;
+      export function extname(p: string): string;
+      export var sep: string;
+      export var delimiter: string;
+      export function parse(p: string): ParsedPath;
+      export function format(pP: ParsedPath): string;
     }
 
     export module win32 {
-        export function normalize(p: string): string;
-        export function join(...paths: any[]): string;
-        export function resolve(...pathSegments: any[]): string;
-        export function isAbsolute(p: string): boolean;
-        export function relative(from: string, to: string): string;
-        export function dirname(p: string): string;
-        export function basename(p: string, ext?: string): string;
-        export function extname(p: string): string;
-        export var sep: string;
-        export var delimiter: string;
-        export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+      export function normalize(p: string): string;
+      export function join(...paths: any[]): string;
+      export function resolve(...pathSegments: any[]): string;
+      export function isAbsolute(p: string): boolean;
+      export function relative(from: string, to: string): string;
+      export function dirname(p: string): string;
+      export function basename(p: string, ext?: string): string;
+      export function extname(p: string): string;
+      export var sep: string;
+      export var delimiter: string;
+      export function parse(p: string): ParsedPath;
+      export function format(pP: ParsedPath): string;
     }
 }
 
@@ -1371,7 +1372,7 @@ declare module "stream" {
     // Note: Duplex extends both Readable and Writable.
     export class Duplex extends Readable implements NodeJS.ReadWriteStream {
         writable: boolean;
-        //constructor(opts?: DuplexOptions);
+        // constructor(opts?: DuplexOptions);
         _write(data: Buffer, encoding: string, callback: Function): void;
         _write(data: string, encoding: string, callback: Function): void;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -1450,7 +1451,7 @@ declare module "assert" {
             generatedMessage: boolean;
 
             constructor(options?: {message?: string; actual?: any; expected?: any;
-                operator?: string; stackStartFunction?: Function});
+                                  operator?: string; stackStartFunction?: Function});
         }
 
         export function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
