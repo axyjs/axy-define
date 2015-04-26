@@ -601,6 +601,13 @@ declare module "axy-define" {
          * @returns {string}
          */
         function readPackage(requestPath: string): string;
+        /**
+         * Clears the code of a JS file (strip BOM and "#!...")
+         *
+         * @param {string} content
+         * @return {string}
+         */
+        function clearCode(content: string): string;
     }
     /**
      * Module loaders (for different file extensions)

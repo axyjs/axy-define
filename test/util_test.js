@@ -41,5 +41,20 @@ module.exports = {
         test.strictEqual(util.tryPackage("/two", exts), "/two/no-index.js");
         test.strictEqual(util.tryPackage("/three", exts), null);
         test.done();
+    },
+
+    testClearCode: function (test) {
+        var util = axy.define.core.require("__axy").util,
+            expected = "exports.a = 1;\n exports.b=2;",
+            t1 = "\ufeffexports.a = 1;\n exports.b=2;",
+            t2 = "\ufffeexports.a = 1;\n exports.b=2;",
+            t3 = "\ufeff#!/usr/bin/node\nexports.a = 1;\n exports.b=2;",
+            t4 = "#!/usr/bin/node\nexports.a = 1;\n exports.b=2;";
+        test.strictEqual(util.clearCode(expected), expected);
+        test.strictEqual(util.clearCode(t1), expected);
+        test.strictEqual(util.clearCode(t2), expected);
+        test.strictEqual(util.clearCode(t3), expected);
+        test.strictEqual(util.clearCode(t4), expected);
+        test.done();
     }
 };

@@ -117,4 +117,21 @@ module util {
         }
         return null;
     }
+
+    /**
+     * Clears the code of a JS file (strip BOM and "#!...")
+     *
+     * @param {string} content
+     * @return {string}
+     */
+    export function clearCode(content: string): string {
+        var first: string = content.charAt(0);
+        if ((first === "\ufeff") || (first === "\ufffe")) {
+            content = content.slice(1);
+        }
+        if (content.substr(0, 2) === "#!") {
+            content = content.replace(/^.*\n/, "");
+        }
+        return content;
+    }
 }

@@ -1100,6 +1100,23 @@ axy.define = (function (window, undefined) {
                 }
                 return null;
             }
+            /**
+             * Clears the code of a JS file (strip BOM and "#!...")
+             *
+             * @param {string} content
+             * @return {string}
+             */
+            function clearCode(content) {
+                var first = content.charAt(0);
+                if ((first === "\ufeff") || (first === "\ufffe")) {
+                    content = content.slice(1);
+                }
+                if (content.substr(0, 2) === "#!") {
+                    content = content.replace(/^.*\n/, "");
+                }
+                return content;
+            }
+            util.clearCode = clearCode;
         })(util || (util = {}));
         /**
          * Module loaders (for different file extensions)
@@ -1750,10 +1767,7 @@ axy.define = (function (window, undefined) {
                         wrapper = content;
                     }
                     else {
-                        wrapped = Module.wrap(content);
-                        if (wrapped.slice(0, 2) === "#!") {
-                            wrapped = wrapped.replace(/^.*\n/, "");
-                        }
+                        wrapped = Module.wrap(util.clearCode(content));
                         wrapper = eval(wrapped);
                         if (!wrapper) {
                             wrapper = eval("var w=" + wrapped + ";w");

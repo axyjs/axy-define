@@ -401,10 +401,7 @@ module engine {
             if (typeof content === "function") {
                 wrapper = <IWrapper>content;
             } else {
-                wrapped = Module.wrap(<string>content);
-                if (wrapped.slice(0, 2) === "#!") {
-                    wrapped = wrapped.replace(/^.*\n/, "");
-                }
+                wrapped = Module.wrap(util.clearCode(<string>content));
                 wrapper = eval(wrapped);
                 if (!wrapper) { // ie8
                     wrapper = eval("var w=" + wrapped + ";w");
