@@ -217,7 +217,7 @@ module sandbox {
             helpers.destroyContainer(sandbox);
         }
         sandbox.signal = function (event: string, ...args: any[]): void {
-            context.signalInstance.fire(event, args);
+            context.signalInstance.emit(event, args);
             if (event === "exit") {
                 destroy();
             }

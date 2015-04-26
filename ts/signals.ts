@@ -46,7 +46,7 @@ module signals {
          * @param {string} event
          * @param {any[]} args
          */
-        public fire(event: string, args: any[] = []): void {
+        public emit(event: string, args: any[] = []): void {
             var list: IListener[] = this.listeners[event],
                 listener: IListener,
                 len: number,

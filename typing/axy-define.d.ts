@@ -1109,7 +1109,7 @@ declare module "axy-define" {
              * @param {string} event
              * @param {any[]} args
              */
-            fire(event: string, args?: any[]): void;
+            emit(event: string, args?: any[]): void;
             /**
              * Destroys the emitter
              */

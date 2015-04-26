@@ -1876,7 +1876,7 @@ axy.define = (function (window, undefined) {
                  * @param {string} event
                  * @param {any[]} args
                  */
-                Emitter.prototype.fire = function (event, args) {
+                Emitter.prototype.emit = function (event, args) {
                     if (args === void 0) { args = []; }
                     var list = this.listeners[event], listener, len, i;
                     if (list) {
@@ -2006,7 +2006,7 @@ axy.define = (function (window, undefined) {
                     for (var _i = 1; _i < arguments.length; _i++) {
                         args[_i - 1] = arguments[_i];
                     }
-                    context.signalInstance.fire(event, args);
+                    context.signalInstance.emit(event, args);
                     if (event === "exit") {
                         destroy();
                     }
