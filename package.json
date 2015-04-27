@@ -1,6 +1,6 @@
 {
     "name": "axy-define",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A CommonJS implementation for browsers",
     "license": "MIT",
     "homepage": "https://github.com/axyjs/axy-define",

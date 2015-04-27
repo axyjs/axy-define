@@ -1,6 +1,6 @@
 # CHANGELOG
 
-### dev
+### 0.0.2 (27.04.2015)
 
 * Full implementation of `global`
 * `createSandbox`: argument `externalGlobal`
